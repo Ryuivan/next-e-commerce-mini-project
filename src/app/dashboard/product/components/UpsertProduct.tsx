@@ -83,7 +83,7 @@ const UpsertProduct = ({
     startTransition(async () => {
       try {
         if (mode === 'add') {
-          onAddProduct({ ...data, id_user: userId })
+          onAddProduct({ ...data, id_user: userId ?? '' })
         } else if (initialProduct?.id) {
           onUpdateProduct({ ...initialProduct, ...data })
         }
@@ -168,7 +168,7 @@ const UpsertProduct = ({
                     placeholder='Product Price'
                     error={!!errors.price}
                     helperText={errors.price?.message}
-                    onChange={event => Number(event.target.value)}
+                    onChange={event => field.onChange(Number(event.target.value))}
                   />
                 )}
               />
@@ -187,7 +187,7 @@ const UpsertProduct = ({
                     placeholder='Product Stock'
                     error={!!errors.stok}
                     helperText={errors.stok?.message}
-                    onChange={event => Number(event.target.value)}
+                    onChange={event => field.onChange(Number(event.target.value))}
                   />
                 )}
               />

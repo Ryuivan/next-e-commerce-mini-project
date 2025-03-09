@@ -101,7 +101,7 @@ const DashboardProduct = ({ initialData, userId }: DashboardProductProps) => {
         />
       )}
       <UpsertProduct
-      userId={userId}
+        userId={userId}
         open={open}
         setOpen={setOpen}
         mode={mode}

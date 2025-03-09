@@ -29,7 +29,7 @@ export const addProduct = async (product: ProductType): Promise<ProductType | nu
   const supabase = await createClient()
 
   try {
-    const { data, error } = await supabase.from('products').insert([product]).select().single()
+    const { data, error } = await supabase.from('product').insert([product]).select().single()
 
     if (error) throw new Error(error.message)
     logger('addLocation', data, 'info')
@@ -48,7 +48,7 @@ export const updateProduct = async (product: ProductType): Promise<ProductType |
 
   try {
     const { data, error } = await supabase
-      .from('products')
+      .from('product')
       .update({
         name: product.name,
         description: product.description,
@@ -78,7 +78,7 @@ export const deleteProducts = async (products: ProductType[]): Promise<boolean> 
 
   try {
     const { data, error } = await supabase
-      .from('products')
+      .from('product')
       .delete()
       .in(
         'id',

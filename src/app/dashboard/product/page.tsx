@@ -15,7 +15,7 @@ const DashboardProductPage = async () => {
 
   const products = await getProducts()
 
-  return <DashboardProduct initialData={products || []}  userId={data.user.id}/>
+  return <DashboardProduct initialData={products || []} userId={data.user.id} />
 }
 
 export default DashboardProductPage

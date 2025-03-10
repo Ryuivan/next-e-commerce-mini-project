@@ -1,3 +1,5 @@
+import { Button } from '@mui/material'
+
 import type { ChildrenType } from '@/@core/types'
 
 // 🔹 Helpers & Utilities
@@ -52,7 +54,7 @@ const ProductsLayout = async ({ children }: ChildrenType) => {
   const supabase = await createClient()
   const { data } = await supabase.auth.getUser()
   const userId = data.user?.id ?? ''
-  
+
   // 🔹 Fetch user role
   const userRole = await getUserRole(userId)
 

@@ -1,10 +1,9 @@
 import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
-import { getProducts } from './actions'
-import Products from './components/Products'
 
-export default async function ProductsPage() {
+
+export default async function HomePage() {
   const supabase = await createClient()
 
   const { data, error } = await supabase.auth.getUser()
@@ -13,7 +12,11 @@ export default async function ProductsPage() {
     redirect('/login')
   }
 
-  const products = await getProducts()
+  
+  return (
+    <div className="flex justify-center items-center h-screen text-2xl font-bold">
+      This is a home page
+    </div>
+  )
 
-  return <Products initialData={products || []} />
 }

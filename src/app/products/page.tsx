@@ -4,8 +4,14 @@ import { Skeleton, Grid2, Typography, Box } from '@mui/material'
 
 import { getProducts } from '../dashboard/product/actions'
 import ProductCard from './components/ProductCard'
+import { createClient } from '@/utils/supabase/server'
 
 const ProductPage = async () => {
+  // 🔹 Get user data
+  const supabase = await createClient()
+  const { data } = await supabase.auth.getUser()
+  const userId = data.user?.id ?? ''
+
   const products = await getProducts()
 
   return (
@@ -23,7 +29,7 @@ const ProductPage = async () => {
             }}
           >
             <Suspense fallback={<Skeleton variant='rounded' animation='wave' width='100%' height={300} />}>
-              <ProductCard product={product} />
+              <ProductCard product={product} userId={userId} />
             </Suspense>
           </Grid2>
         ))}

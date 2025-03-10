@@ -2,10 +2,9 @@
 
 import { revalidatePath } from 'next/cache'
 
-import type { ProductType } from '../../dashboard/product/types'
-
 import { createClient } from '@/utils/supabase/server'
 import { logger } from '@/utils/logger'
+import type { ProductType } from '@/app/dashboard/product/types'
 
 export async function getProducts(): Promise<ProductType[]> {
   const supabase = await createClient()
@@ -146,6 +145,28 @@ export async function getProductDetailById(id: string): Promise<ProductType | nu
     return data
   } catch (error: any) {
     logger('getProductDetailById', error, 'error')
+
     return null
+  }
+}
+
+export const getUserRole = async (id: string): Promise<'admin' | 'user' | undefined> => {
+  if (!id) return 'user' // Default role untuk pengguna tanpa ID
+
+  try {
+    const supabase = await createClient()
+    const { data, error } = await supabase.from('user').select('role').eq('id', id).single()
+
+    if (error) {
+      console.error('Error fetching user role:', error)
+
+      return undefined
+    }
+
+    return data?.role ?? 'user'
+  } catch (err) {
+    console.error('Unexpected error fetching user role:', err)
+
+    return undefined
   }
 }

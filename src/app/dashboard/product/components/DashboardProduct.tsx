@@ -62,7 +62,7 @@ const DashboardProduct = ({ initialData, userId }: DashboardProductProps) => {
         error: 'Failed to update product'
       })
 
-      const savedProduct = await updatePromise
+      const savedProduct = updatePromise
 
       if (savedProduct) {
         setProducts(prev => prev.map(product => (product.id === savedProduct.id ? savedProduct : product)))

@@ -48,7 +48,7 @@ const columns = [
     enableSorting: true,
     sortingFn: numericSort
   }),
-  
+
   // columnHelper.accessor('id_user', {
   //   cell: info => info.getValue(),
   //   header: 'Added by',

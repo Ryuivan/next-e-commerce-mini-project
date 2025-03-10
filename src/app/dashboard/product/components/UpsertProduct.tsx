@@ -182,7 +182,7 @@ const UpsertProduct = ({
                   <CustomTextField
                     {...field}
                     fullWidth
-                    label='Stock'
+                    label='Stok'
                     type='number'
                     placeholder='Product Stock'
                     error={!!errors.stok}

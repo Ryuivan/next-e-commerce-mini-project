@@ -26,6 +26,7 @@ import navigationCustomStyles from '@core/styles/vertical/navigationCustomStyles
 
 type Props = {
   mode: Mode
+  role?: 'admin' | 'user'
 }
 
 const StyledBoxForShadow = styled('div')(({ theme }) => ({
@@ -48,7 +49,7 @@ const StyledBoxForShadow = styled('div')(({ theme }) => ({
 
 const Navigation = (props: Props) => {
   // Props
-  const { mode } = props
+  const { mode, role } = props
 
   // Hooks
   const verticalNavOptions = useVerticalNav()
@@ -121,7 +122,7 @@ const Navigation = (props: Props) => {
         )}
       </NavHeader>
       <StyledBoxForShadow ref={shadowRef} />
-      <VerticalMenu scrollMenu={scrollMenu} />
+      <VerticalMenu scrollMenu={scrollMenu} role={role} />
     </VerticalNav>
   )
 }

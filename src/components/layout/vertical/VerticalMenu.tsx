@@ -27,6 +27,7 @@ type RenderExpandIconProps = {
 
 type Props = {
   scrollMenu: (container: any, isPerfectScrollbar: boolean) => void
+  role?: 'admin' | 'user'
 }
 
 const RenderExpandIcon = ({ open, transitionDuration }: RenderExpandIconProps) => (
@@ -35,7 +36,7 @@ const RenderExpandIcon = ({ open, transitionDuration }: RenderExpandIconProps) =
   </StyledVerticalNavExpandIcon>
 )
 
-const VerticalMenu = ({ scrollMenu }: Props) => {
+const VerticalMenu = ({ scrollMenu, role }: Props) => {
   // Hooks
   const theme = useTheme()
   const verticalNavOptions = useVerticalNav()
@@ -68,11 +69,21 @@ const VerticalMenu = ({ scrollMenu }: Props) => {
         renderExpandedMenuItemIcon={{ icon: <i className='tabler-circle text-xs' /> }}
         menuSectionStyles={menuSectionStyles(verticalNavOptions, theme)}
       >
-        <MenuItem href='/dashboard' icon={<i className='tabler-layout-dashboard' />}>
+        {role === 'admin' && (
+          <>
+            <MenuItem href='/dashboard' icon={<i className='tabler-layout-dashboard' />}>
+              Dashboard
+            </MenuItem>
+            <MenuItem href='/dashboard/product' icon={<i className='tabler-shoe' />}>
+              Product Dashboard
+            </MenuItem>
+          </>
+        )}
+        <MenuItem href='/' icon={<i className='tabler-home' />}>
           Home
         </MenuItem>
-        <MenuItem href='/dashboard/product' icon={<i className='tabler-shoe' />}>
-          Product
+        <MenuItem href='/products' icon={<i className='tabler-shoe' />}>
+          Products
         </MenuItem>
         <MenuItem href='/master/table-example' icon={<i className='tabler-info-circle' />}>
           Table Example

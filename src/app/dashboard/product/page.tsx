@@ -10,7 +10,7 @@ const DashboardProductPage = async () => {
   const { data, error } = await supabase.auth.getUser()
 
   if (error || !data?.user) {
-    redirect('/login')
+    redirect('/dashboard/product')
   }
 
   const products = await getProducts()

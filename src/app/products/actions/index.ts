@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache'
 
-import type { ProductType } from '../types'
+import type { ProductType } from '../../dashboard/product/types'
 
 import { createClient } from '@/utils/supabase/server'
 import { logger } from '@/utils/logger'
@@ -97,7 +97,6 @@ export async function addOrder(id_product: string, id_customer: string): Promise
   const supabase = await createClient()
 
   try {
-    
     const { data: product, error: productError } = await supabase
       .from('product')
       .select('id, stok')
@@ -107,17 +106,14 @@ export async function addOrder(id_product: string, id_customer: string): Promise
     if (productError) throw new Error(productError.message)
     if (!product) throw new Error('Product not found')
 
-    
     if (product.stok <= 0) throw new Error('Product is out of stock')
 
-    
-    const { data: orderData, error: orderError } = await supabase.from('transaction_product').insert([
-      { id_product, id_customer }
-    ])
+    const { data: orderData, error: orderError } = await supabase
+      .from('transaction_product')
+      .insert([{ id_product, id_customer }])
 
     if (orderError) throw new Error(orderError.message)
 
-   
     const { error: updateError } = await supabase
       .from('product')
       .update({ stok: product.stok - 1 })
@@ -137,18 +133,13 @@ export async function addOrder(id_product: string, id_customer: string): Promise
   }
 }
 
-
 export async function getProductDetailById(id: string): Promise<ProductType | null> {
   if (!id) return null
 
   const supabase = await createClient()
 
   try {
-    const { data, error } = await supabase
-      .from('product')
-      .select('*')
-      .eq('id', id)
-      .single()
+    const { data, error } = await supabase.from('product').select('*').eq('id', id).single()
 
     if (error) throw new Error(error.message)
 
@@ -158,4 +149,3 @@ export async function getProductDetailById(id: string): Promise<ProductType | nu
     return null
   }
 }
-

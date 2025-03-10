@@ -4,8 +4,8 @@ export interface ProductType {
   description: string
   price: number
   image_Url: string
-  created_at?: Date | null
-  updated_at?: Date | null
+  created_at?: string | null
+  updated_at?: string | null
   stok: number
-  id_user: string
+  id_user?: string
 }

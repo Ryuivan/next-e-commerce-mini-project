@@ -9,21 +9,34 @@ import { Card, CardContent, Stack, Box, Typography, CardActions, IconButton } fr
 
 import type { ProductType } from '@/app/dashboard/product/types'
 import { logger } from '@/utils/logger'
+import { addOrder } from '../actions'
 
 type ProductCardProps = {
   product: ProductType
+  userId?: string
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ product, userId }: ProductCardProps) => {
   const { push } = useRouter()
 
   const handleRedirect = (id: string) => {
     push(`/products/${id}`)
   }
 
-  const handleAddToCart = (event: MouseEvent<HTMLButtonElement>, name: string) => {
+  const handleAddToCart = async (event: MouseEvent<HTMLButtonElement>, productId: string) => {
     event.stopPropagation()
-    logger('Add to cart clicked', name, 'info')
+
+    try {
+      if (!userId) throw new Error('User ID is not found')
+
+      const success = await addOrder(productId, userId)
+
+      if (!success) throw new Error('Failed to add order')
+
+      logger('Add to cart clicked', 'success', 'info')
+    } catch (error: any) {
+      logger('Add to cart clicked', error, 'error')
+    }
   }
 
   return (
@@ -52,7 +65,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <IconButton
               color='primary'
               aria-label='Add to cart'
-              onClick={event => handleAddToCart(event, product.name)}
+              onClick={event => handleAddToCart(event, product.id || '')}
               className='p-0'
             >
               <i className='tabler-shopping-cart-plus' />

@@ -11,6 +11,16 @@ const nextConfig: NextConfig = {
         locale: false
       }
     ]
+  },
+  images: {
+    domains: ['static.nike.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'static.nike.com',
+        pathname: '/a/images/**'
+      }
+    ]
   }
 }
 

@@ -21,7 +21,7 @@ const LoginPage = async () => {
   logger('Auth Check', { user: userData?.user, error }, 'info')
 
   if (!error && userData?.user) {
-    redirect('/')
+    redirect('/home')
   }
 
   return <Login />

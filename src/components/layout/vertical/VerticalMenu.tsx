@@ -27,6 +27,7 @@ type RenderExpandIconProps = {
 
 type Props = {
   scrollMenu: (container: any, isPerfectScrollbar: boolean) => void
+  role?: 'admin' | 'user'
 }
 
 const RenderExpandIcon = ({ open, transitionDuration }: RenderExpandIconProps) => (
@@ -35,7 +36,7 @@ const RenderExpandIcon = ({ open, transitionDuration }: RenderExpandIconProps) =
   </StyledVerticalNavExpandIcon>
 )
 
-const VerticalMenu = ({ scrollMenu }: Props) => {
+const VerticalMenu = ({ scrollMenu, role }: Props) => {
   // Hooks
   const theme = useTheme()
   const verticalNavOptions = useVerticalNav()
@@ -68,13 +69,19 @@ const VerticalMenu = ({ scrollMenu }: Props) => {
         renderExpandedMenuItemIcon={{ icon: <i className='tabler-circle text-xs' /> }}
         menuSectionStyles={menuSectionStyles(verticalNavOptions, theme)}
       >
-        <MenuItem href='/home' icon={<i className='tabler-smart-home' />}>
+        <MenuItem href='/home' icon={<i className='tabler-layout-dashboard' />}>
           Home
         </MenuItem>
-        <MenuItem href='/about' icon={<i className='tabler-info-circle' />}>
-          About
+        <MenuItem href='/dashboard/product' icon={<i className='tabler-shoe' />}>
+          Product Dashboard
         </MenuItem>
-        <MenuItem href='/master/table-example' icon={<i className='tabler-info-circle' />}>
+        <MenuItem href='/products' icon={<i className='tabler-shopping-cart' />}>
+          Products
+        </MenuItem>
+        <MenuItem href='/dashboard/transaction' icon={<i className='tabler-receipt' />}>
+          Transaction History
+        </MenuItem>
+        {/* <MenuItem href='/master/table-example' icon={<i className='tabler-info-circle' />}>
           Table Example
         </MenuItem>
         <MenuItem href='/master/orders' icon={<i className='tabler-receipt' />}>
@@ -82,7 +89,7 @@ const VerticalMenu = ({ scrollMenu }: Props) => {
         </MenuItem>
         <MenuItem href='/master/phones' icon={<i className='tabler-device-mobile' />}>
           Phones
-        </MenuItem>
+        </MenuItem> */}
       </Menu>
       {/* <Menu
         popoutMenuOffset={{ mainAxis: 23 }}

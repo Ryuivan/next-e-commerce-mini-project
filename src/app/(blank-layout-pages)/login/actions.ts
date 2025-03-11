@@ -18,4 +18,6 @@ export async function signInWithDevStreamId() {
   if (data.url) {
     return redirect(data.url)
   }
+
+  // return redirect('/home')
 }

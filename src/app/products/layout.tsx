@@ -20,12 +20,13 @@ import HorizontalFooter from '@components/layout/horizontal/Footer'
 import ScrollToTop from '@core/components/scroll-to-top'
 import { getUserRole } from './actions'
 
+import { logger } from '@/utils/logger'
+
 /**
  * Fetch user role from the database
  * @param {string} id - User ID
  * @returns {Promise<'admin' | 'user' | undefined>} - The role of the user
  */
-
 
 const ProductsLayout = async ({ children }: ChildrenType) => {
   const direction = 'ltr'
@@ -35,7 +36,10 @@ const ProductsLayout = async ({ children }: ChildrenType) => {
   // 🔹 Get user data
   const supabase = await createClient()
   const { data } = await supabase.auth.getUser()
+
   const userId = data.user?.id ?? ''
+
+  logger('UserId', userId, 'info')
 
   // 🔹 Fetch user role
   const userRole = await getUserRole(userId)

@@ -1,5 +1,6 @@
 // MUI Imports
 import { useTheme } from '@mui/material/styles'
+import { Divider } from '@mui/material'
 
 // Third-party Imports
 import PerfectScrollbar from 'react-perfect-scrollbar'
@@ -69,27 +70,25 @@ const VerticalMenu = ({ scrollMenu, role }: Props) => {
         renderExpandedMenuItemIcon={{ icon: <i className='tabler-circle text-xs' /> }}
         menuSectionStyles={menuSectionStyles(verticalNavOptions, theme)}
       >
-        <MenuItem href='/home' icon={<i className='tabler-layout-dashboard' />}>
+        {role === 'admin' && (
+          <>
+            <MenuItem href='/dashboard/product' icon={<i className='tabler-shoe' />}>
+              Product Dashboard
+            </MenuItem>
+            <MenuItem href='/dashboard/transaction' icon={<i className='tabler-receipt' />}>
+              Transaction History
+            </MenuItem>
+            <MenuItem disabled>
+              <Divider variant='fullWidth' />
+            </MenuItem>
+          </>
+        )}
+        <MenuItem href='/home' icon={<i className='tabler-home' />}>
           Home
-        </MenuItem>
-        <MenuItem href='/dashboard/product' icon={<i className='tabler-shoe' />}>
-          Product Dashboard
         </MenuItem>
         <MenuItem href='/products' icon={<i className='tabler-shopping-cart' />}>
           Products
         </MenuItem>
-        <MenuItem href='/dashboard/transaction' icon={<i className='tabler-receipt' />}>
-          Transaction History
-        </MenuItem>
-        {/* <MenuItem href='/master/table-example' icon={<i className='tabler-info-circle' />}>
-          Table Example
-        </MenuItem>
-        <MenuItem href='/master/orders' icon={<i className='tabler-receipt' />}>
-          Orders
-        </MenuItem>
-        <MenuItem href='/master/phones' icon={<i className='tabler-device-mobile' />}>
-          Phones
-        </MenuItem> */}
       </Menu>
       {/* <Menu
         popoutMenuOffset={{ mainAxis: 23 }}

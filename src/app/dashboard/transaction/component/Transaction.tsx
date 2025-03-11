@@ -14,18 +14,18 @@ type ProductsProps = {
 
 export default function Transaction({ initialData }: ProductsProps) {
   const [products, setProducts] = useState<TransactionType[]>(initialData)
-  //   const [userName, setUserName] = useState<string | null>(null)
+  // const [userName, setUserName] = useState<string | null>(null)
 
-  //   useEffect(() => {
-  //     const fetchUser = async () => {
-  //       const supabase = createClient()
-  //       const { data, error } = await supabase.auth.getUser()
-  //       if (data?.user) {
-  //         setUserName(data.user.user_metadata?.full_name || 'User')
-  //       }
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     const supabase = createClient()
+  //     const { data, error } = await supabase.auth.getUser()
+  //     if (data?.user) {
+  //       setUserName(data.user.user_metadata?.full_name || 'User')
   //     }
-  //     fetchUser()
-  //   }, [])
+  //   }
+  //   fetchUser()
+  // }, [])
 
   return (
     <div>

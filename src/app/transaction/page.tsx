@@ -13,7 +13,8 @@ export default async function ProductsPage() {
     redirect('/login')
   }
 
-  const userId = data.user.id 
+  const userId = data.user.id
+  // const userId = '5cf1c605-e10e-46b2-86d0-23ba4a367c1a'
 
   const products = await getTransactionsByCustomer(userId)
 

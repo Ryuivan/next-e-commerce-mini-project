@@ -27,4 +27,3 @@ export async function getTransactionsByCustomer(customerId: string): Promise<Tra
     return []
   }
 }
-

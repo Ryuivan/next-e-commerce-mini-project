@@ -122,7 +122,7 @@ const Navigation = (props: Props) => {
         )}
       </NavHeader>
       <StyledBoxForShadow ref={shadowRef} />
-      <VerticalMenu scrollMenu={scrollMenu} role={role} />
+      <VerticalMenu scrollMenu={scrollMenu} role={role ?? 'user'} />
     </VerticalNav>
   )
 }

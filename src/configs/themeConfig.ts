@@ -53,8 +53,8 @@ export type Config = {
 }
 
 const themeConfig: Config = {
-  templateName: 'Kalbe DevStreams UI Template',
-  homePageUrl: '/home',
+  templateName: 'Shoes Mini Shop',
+  homePageUrl: '/',
   settingsCookieName: 'kalbe-devstream-ui-1',
   mode: 'system', // 'system', 'light', 'dark'
   skin: 'default', // 'default', 'bordered'

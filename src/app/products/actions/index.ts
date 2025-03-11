@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { createClient } from '@/utils/supabase/server'
 import { logger } from '@/utils/logger'
 import type { ProductType } from '@/app/dashboard/product/types'
+import { ToastError } from '@/utils/toastError'
 
 export async function getProducts(): Promise<ProductType[]> {
   const supabase = await createClient()
@@ -105,8 +106,9 @@ export async function addOrder(id_product: string, id_customer: string): Promise
     if (productError) throw new Error(productError.message)
     if (!product) throw new Error('Product not found')
 
-    if (product.stok <= 0) throw new Error('Product is out of stock')
-
+    if (product.stok <= 0) {
+      return false
+    }
     const { data: orderData, error: orderError } = await supabase
       .from('transaction_product')
       .insert([{ id_product, id_customer }])

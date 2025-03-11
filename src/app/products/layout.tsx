@@ -19,7 +19,7 @@ import VerticalFooter from '@components/layout/vertical/Footer'
 import HorizontalFooter from '@components/layout/horizontal/Footer'
 import ScrollToTop from '@core/components/scroll-to-top'
 import { getUserRole } from './actions'
-
+import { ToastContainer } from 'react-toastify'
 import { logger } from '@/utils/logger'
 
 /**

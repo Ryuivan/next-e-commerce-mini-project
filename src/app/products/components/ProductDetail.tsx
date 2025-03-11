@@ -9,6 +9,10 @@ import { Box, Button, Stack, Typography } from '@mui/material'
 import type { ProductType } from '@/app/dashboard/product/types'
 import { addOrder } from '../actions'
 import { logger } from '@/utils/logger'
+import { ToastError } from '@/utils/toastError'
+import { ToastSuccess } from '@/utils/ToastSucces'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 type ProductDetailProps = {
   product: ProductType | null
@@ -31,9 +35,13 @@ const ProductDetail = ({ product, userId }: ProductDetailProps) => {
     try {
       if (!userId) throw new Error('User ID is not found')
 
-      const success = await addOrder(productId, userId)
+      const result = await addOrder(productId, userId)
 
-      if (!success) throw new Error('Failed to add order')
+      if (!result) {
+        ToastError('Out Of Stock')
+      } else {
+        ToastSuccess('Order added successfully!')
+      }
 
       logger('Add to cart clicked', 'success', 'info')
     } catch (error: any) {
@@ -52,15 +60,19 @@ const ProductDetail = ({ product, userId }: ProductDetailProps) => {
             <Box>
               <Typography className='font-bold text-2xl text-primary'>{product.name}</Typography>
             </Box>
+
             <Box>
               <Typography className='font-bold text-lg'>{formatPrice(product.price)}</Typography>
+            </Box>
+            <Box>
+              <Typography className='font-bold text-md text-secondary'> stock Product: {product.stok}</Typography>
             </Box>
             <Box>
               <Typography className='font-normal text-base text-secondary text-justify'>
                 {product.description}
               </Typography>
             </Box>
-            <Button
+            {/* <Button
               variant='outlined'
               color='primary'
               endIcon={<i className='tabler-shopping-cart-plus' />}
@@ -68,6 +80,20 @@ const ProductDetail = ({ product, userId }: ProductDetailProps) => {
               onClick={event => handleAddToCart(event, product.id || '')}
             >
               Add to cart
+            </Button> */}
+            <Button
+              aria-label='Order Product'
+              variant='contained'
+              onClick={event => handleAddToCart(event, product.id || '')}
+              sx={{
+                backgroundColor: 'primary.main',
+                '&:hover': { backgroundColor: 'primary.dark' },
+                height: 40,
+                width: '30%'
+              }}
+            >
+              {' '}
+              <Typography>Order</Typography>
             </Button>
           </Stack>
         </Box>

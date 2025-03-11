@@ -25,6 +25,44 @@ export const getProducts = async (): Promise<ProductType[]> => {
   }
 }
 
+export const getProductImages = async (limit?: number): Promise<string[]> => {
+  const supabase = await createClient()
+
+  try {
+    const { data, error } = await supabase.from('product').select('image_Url')
+
+    if (error) throw new Error(error.message)
+
+    logger('getProductImages', data, 'info')
+
+    if (limit) return data.slice(0, limit).map((product: { image_Url: string }) => product.image_Url ?? '')
+
+    return data.map((product: { image_Url: string }) => product.image_Url ?? '') || []
+  } catch (error: any) {
+    logger('getProductImages', error, 'error')
+
+    return []
+  }
+}
+
+export const getRandomProducts = async (): Promise<ProductType[]> => {
+  const supabase = await createClient()
+
+  try {
+    const { data, error } = await supabase.rpc('get_random_products')
+
+    if (error) throw new Error(error.message)
+
+    logger('getRandomProducts', data, 'info')
+
+    return data || []
+  } catch (error: any) {
+    logger('getRandomProducts', error, 'error')
+
+    return []
+  }
+}
+
 export const addProduct = async (product: ProductType): Promise<ProductType | null> => {
   const supabase = await createClient()
 

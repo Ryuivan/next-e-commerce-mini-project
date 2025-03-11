@@ -18,7 +18,6 @@ import Navbar from '@components/layout/vertical/Navbar'
 import VerticalFooter from '@components/layout/vertical/Footer'
 import HorizontalFooter from '@components/layout/horizontal/Footer'
 import ScrollToTop from '@core/components/scroll-to-top'
-import { logger } from '@/utils/logger'
 import { getUserRole } from '../products/actions'
 
 /**
@@ -35,11 +34,7 @@ const ProductsLayout = async ({ children }: ChildrenType) => {
   // 🔹 Get user data
   const supabase = await createClient()
   const { data } = await supabase.auth.getUser()
-
-  logger('UserData', data, 'info')
   const userId = data.user?.id ?? ''
-
-  logger('UserId', userId, 'info')
 
   // 🔹 Fetch user role
   const userRole = await getUserRole(userId)

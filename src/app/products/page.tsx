@@ -16,7 +16,7 @@ const ProductPage = async () => {
 
   return (
     <Box>
-      <Typography className='font-bold text-2xl'>Shoes Products</Typography>
+      <Typography className='font-bold text-3xl text-primary'>Shoes Products</Typography>
 
       <Grid2 container spacing={2} className='mt-6'>
         {products.map(product => (

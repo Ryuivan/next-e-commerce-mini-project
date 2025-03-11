@@ -63,6 +63,33 @@ export const getRandomProducts = async (): Promise<ProductType[]> => {
   }
 }
 
+export const getFilteredProducts = async (query: string, page: number): Promise<ProductType[]> => {
+  const supabase = await createClient()
+
+  try {
+    const limit = 6 // 🔹 Menampilkan 6 produk per halaman
+    const offset = (page - 1) * limit
+
+    let queryBuilder = supabase.from('product').select('*')
+
+    if (query) {
+      queryBuilder = queryBuilder.or(`name.ilike.%${query}%, description.ilike.%${query}%`)
+    }
+
+    const { data, error } = await queryBuilder.range(offset, offset + limit - 1)
+
+    if (error) throw new Error(error.message)
+
+    logger('getFilteredProducts', data, 'info')
+
+    return data || []
+  } catch (error: any) {
+    logger('getFilteredProducts', error, 'error')
+
+    return []
+  }
+}
+
 export const addProduct = async (product: ProductType): Promise<ProductType | null> => {
   const supabase = await createClient()
 

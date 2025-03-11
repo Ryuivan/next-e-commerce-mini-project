@@ -86,6 +86,7 @@ const HomeSlider = ({ productImages }: HomeSliderProps) => {
                 'opacity-50 cursor-not-allowed': currentSlide === 0
               }
             )}
+            disabled={currentSlide === 0}
             onClick={() => instanceRef.current?.prev()}
           >
             <i className='tabler-arrow-left' />
@@ -98,6 +99,7 @@ const HomeSlider = ({ productImages }: HomeSliderProps) => {
                 'opacity-50 cursor-not-allowed': currentSlide === instanceRef.current.track.details.slides.length - 1
               }
             )}
+            disabled={currentSlide === instanceRef.current.track.details.slides.length - 1}
             onClick={() => instanceRef.current?.next()}
           >
             <i className='tabler-arrow-right' />

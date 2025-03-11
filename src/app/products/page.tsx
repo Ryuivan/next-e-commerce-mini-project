@@ -1,4 +1,4 @@
-import { Typography, Box, Pagination } from '@mui/material'
+import { Typography, Box } from '@mui/material'
 
 import { createClient } from '@/utils/supabase/server'
 import ProductSearch from './components/ProductSearch'
@@ -30,7 +30,6 @@ const ProductPage = async (props: ProductPageProps) => {
       </Box>
 
       <ProductSection currentPage={currentPage} productQuery={productQuery} userId={userId} />
-
     </Box>
   )
 }

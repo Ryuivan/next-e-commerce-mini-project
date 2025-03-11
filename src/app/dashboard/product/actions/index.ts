@@ -63,6 +63,41 @@ export const getRandomProducts = async (): Promise<ProductType[]> => {
   }
 }
 
+export const getFilteredProducts = async (
+  query: string,
+  page: number,
+  perPage: number = 6
+): Promise<{
+  products: any[]
+  totalPages: number
+}> => {
+  const supabase = await createClient()
+
+  try {
+    const offset = (page - 1) * perPage
+
+    let queryBuilder = supabase.from('product').select('*', { count: 'exact' })
+
+    if (query) {
+      queryBuilder = queryBuilder.or(`name.ilike.%${query}%, description.ilike.%${query}%`)
+    }
+
+    const { data, count, error } = await queryBuilder.range(offset, offset + perPage - 1)
+
+    if (error) throw new Error(error.message)
+
+    logger('getFilteredProducts', data, 'info')
+
+    const totalPages = count ? Math.ceil(count / perPage) : 1
+
+    return { products: data || [], totalPages }
+  } catch (error: any) {
+    logger('getFilteredProducts', error, 'error')
+
+    return { products: [], totalPages: 1 }
+  }
+}
+
 export const addProduct = async (product: ProductType): Promise<ProductType | null> => {
   const supabase = await createClient()
 

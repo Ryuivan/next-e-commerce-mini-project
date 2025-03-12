@@ -22,7 +22,10 @@ const columns = [
     sortingFn: caseInsensitiveSort
   }),
   columnHelper.accessor('product.price', {
-    cell: info => (info.getValue() ? `$${info.getValue()}` : '-'),
+    cell: info => {
+      const price = info.getValue()
+      return price ? new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(price) : '-'
+    },
     header: 'Product Price',
     enableSorting: true
   }),

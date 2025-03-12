@@ -7,6 +7,7 @@ import type { TransactionType } from '../type'
 import columns from '../columns'
 import DataTableRowSelection from './TransactionTable'
 import { createClient } from '@/utils/supabase/client'
+import OrderTable from './TransactionTable'
 
 type ProductsProps = {
   initialData: TransactionType[]
@@ -36,7 +37,7 @@ export default function Transaction({ initialData }: ProductsProps) {
           <Skeleton variant='rectangular' width='100%' height={50} sx={{ mt: 2 }} />
         </Box>
       ) : (
-        <DataTableRowSelection data={products} dynamicColumns={columns} tableName={`Transaction History Table`} />
+        <OrderTable data={products} dynamicColumns={columns} tableName={`Transaction History Table`} />
       )}
     </div>
   )

@@ -50,37 +50,49 @@ const ProductDetail = ({ product, userId }: ProductDetailProps) => {
   }
 
   return (
-    <Box className='w-full h-full flex items-center justify-center '>
-      <Stack direction='row' justifyContent='center' className='max-w-3xl space-x-10'>
-        <Box>
-          <Image src={product.image_Url} alt={product.name} width={300} height={300} className='shadow-md' />
+    <Box className='w-full h-full flex flex-col md:flex-row items-center justify-center p-4'>
+      <Stack
+        direction={{ xs: 'column', md: 'row' }} // Kolom di layar kecil, baris di layar besar
+        justifyContent='center'
+        className='max-w-3xl w-full space-y-4 md:space-y-0 md:space-x-10'
+      >
+        {/* Gambar */}
+        <Box className='w-full md:w-auto flex justify-center'>
+          <Image
+            src={product.image_Url}
+            alt={product.name}
+            width={300}
+            height={300}
+            className='shadow-md w-full md:w-[300px] h-auto'
+          />
         </Box>
-        <Box>
+
+        {/* Teks Produk */}
+        <Box className='w-full text-center md:text-left'>
           <Stack spacing={2} direction='column'>
+            {/* Nama Produk */}
             <Box>
               <Typography className='font-bold text-2xl text-primary'>{product.name}</Typography>
             </Box>
 
+            {/* Harga */}
             <Box>
               <Typography className='font-bold text-lg'>{formatPrice(product.price)}</Typography>
             </Box>
+
+            {/* Stok */}
             <Box>
-              <Typography className='font-bold text-md text-secondary'> stock Product: {product.stok}</Typography>
+              <Typography className='font-bold text-md text-secondary'>Stock Product: {product.stok}</Typography>
             </Box>
+
+            {/* Deskripsi */}
             <Box>
               <Typography className='font-normal text-base text-secondary text-justify'>
                 {product.description}
               </Typography>
             </Box>
-            {/* <Button
-              variant='outlined'
-              color='primary'
-              endIcon={<i className='tabler-shopping-cart-plus' />}
-              className='mt-5 uppercase'
-              onClick={event => handleAddToCart(event, product.id || '')}
-            >
-              Add to cart
-            </Button> */}
+
+            {/* Tombol Order */}
             <Button
               aria-label='Order Product'
               variant='contained'
@@ -89,10 +101,9 @@ const ProductDetail = ({ product, userId }: ProductDetailProps) => {
                 backgroundColor: 'primary.main',
                 '&:hover': { backgroundColor: 'primary.dark' },
                 height: 40,
-                width: '30%'
+                width: { xs: '100%', md: '30%' } // Lebar penuh di layar kecil, 30% di layar besar
               }}
             >
-              {' '}
               <Typography>Order</Typography>
             </Button>
           </Stack>
